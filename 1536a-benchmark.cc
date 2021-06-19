@@ -31,7 +31,9 @@ static void BM_AvlTree_in_order(benchmark::State &state) {
   }
 }
 
-BENCHMARK(BM_AvlTree_in_order)->DenseRange(0, custom_args_size - 1, 1);
+BENCHMARK(BM_AvlTree_in_order)
+    ->Name("AvlTree_in_order")
+    ->DenseRange(0, custom_args_size - 1, 1);
 
 static void BM_AvlTree_iterative_in_order(benchmark::State &state) {
   for (auto _ : state) {
@@ -40,6 +42,7 @@ static void BM_AvlTree_iterative_in_order(benchmark::State &state) {
 }
 
 BENCHMARK(BM_AvlTree_iterative_in_order)
+    ->Name("AvlTree_iterative_in_order")
     ->DenseRange(0, custom_args_size - 1, 1);
 
 int main(int argc, char **argv) {

@@ -49,7 +49,6 @@ def get_benchmarks(filepath):
 
 
 def main():
-    # TODO(cahian): Set benchmark name in C++ file.
     # TODO(cahian): Use some CLI Python Library for filepath and y-axis.
     benchmarks = get_benchmarks("1536a-benchmark.json")
     for i in range(len(benchmarks)):
