@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// ***** AVL Tree implementation *************************************
+
 #define MAX(x, y) ((x) > (y) ? (x) : (y))
 
 struct AvlTree {
@@ -188,6 +190,11 @@ void AvlTree_sanity_check(AvlTree *node) {
   assert(node->height == 1 + MAX(AvlTree_get_height(node->left),
                                  AvlTree_get_height(node->right)));
 }
+
+// ***** Possible solutions ******************************************
+//    Experiments and tests of possible ways
+//    to better solve the problem.
+// *******************************************************************
 
 void AvlTree_in_order(AvlTree *node) {
   if (node == NULL) {
