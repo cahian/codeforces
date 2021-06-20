@@ -2,7 +2,7 @@
 
 #include <vector>
 
-#include "1536a-possible-solutions.c"
+#include "possible-solutions.c"
 
 static std::vector<AvlTree *> custom_args;
 static int custom_args_size = 128;
