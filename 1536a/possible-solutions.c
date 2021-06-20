@@ -9,12 +9,12 @@
 struct AvlTree {
   int key;
   int height;
-  struct AvlTree *left;
-  struct AvlTree *right;
+  struct AvlTree* left;
+  struct AvlTree* right;
 };
 
-AvlTree *AvlTree_create(int key) {
-  AvlTree *node = (AvlTree *)malloc(sizeof(AvlTree));
+AvlTree* AvlTree_create(int key) {
+  AvlTree* node = (AvlTree*)malloc(sizeof(AvlTree));
   node->key = key;
   node->height = 1;
   node->left = NULL;
@@ -22,7 +22,7 @@ AvlTree *AvlTree_create(int key) {
   return node;
 }
 
-void AvlTree_destroy(AvlTree *node) {
+void AvlTree_destroy(AvlTree* node) {
   if (node == NULL) {
     return;
   }
@@ -32,7 +32,7 @@ void AvlTree_destroy(AvlTree *node) {
   free(node);
 }
 
-int AvlTree_get_height(AvlTree *node) {
+int AvlTree_get_height(AvlTree* node) {
   if (node == NULL) {
     return 0;
   }
@@ -40,15 +40,15 @@ int AvlTree_get_height(AvlTree *node) {
   return node->height;
 }
 
-static void AvlTree_update_height(AvlTree *node) {
+static void AvlTree_update_height(AvlTree* node) {
   node->height =
       1 + MAX(AvlTree_get_height(node->left), AvlTree_get_height(node->right));
 }
 
-static void AvlTree_left_rotate(AvlTree **root) {
-  AvlTree *old_root = *root;
-  AvlTree *new_root = old_root->right;
-  AvlTree *old_middle = new_root->left;
+static void AvlTree_left_rotate(AvlTree** root) {
+  AvlTree* old_root = *root;
+  AvlTree* new_root = old_root->right;
+  AvlTree* old_middle = new_root->left;
 
   old_root->right = old_middle;
   new_root->left = old_root;
@@ -58,10 +58,10 @@ static void AvlTree_left_rotate(AvlTree **root) {
   AvlTree_update_height(*root);
 }
 
-static void AvlTree_right_rotate(AvlTree **root) {
-  AvlTree *old_root = *root;
-  AvlTree *new_root = old_root->left;
-  AvlTree *old_middle = new_root->right;
+static void AvlTree_right_rotate(AvlTree** root) {
+  AvlTree* old_root = *root;
+  AvlTree* new_root = old_root->left;
+  AvlTree* old_middle = new_root->right;
 
   old_root->left = old_middle;
   new_root->right = old_root;
@@ -71,7 +71,7 @@ static void AvlTree_right_rotate(AvlTree **root) {
   AvlTree_update_height(*root);
 }
 
-int AvlTree_get_balance(AvlTree *node) {
+int AvlTree_get_balance(AvlTree* node) {
   if (node == NULL) {
     return 0;
   }
@@ -79,7 +79,7 @@ int AvlTree_get_balance(AvlTree *node) {
   return AvlTree_get_height(node->left) - AvlTree_get_height(node->right);
 }
 
-static void AvlTree_rebalance(AvlTree **root) {
+static void AvlTree_rebalance(AvlTree** root) {
   if (*root == NULL) {
     return;
   }
@@ -104,8 +104,8 @@ static void AvlTree_rebalance(AvlTree **root) {
   AvlTree_update_height(*root);
 }
 
-int AvlTree_get_min(AvlTree *node) {
-  AvlTree *current = node;
+int AvlTree_get_min(AvlTree* node) {
+  AvlTree* current = node;
 
   while (current->left != NULL) {
     current = current->left;
@@ -114,8 +114,8 @@ int AvlTree_get_min(AvlTree *node) {
   return current->key;
 }
 
-int AvlTree_get_max(AvlTree *node) {
-  AvlTree *current = node;
+int AvlTree_get_max(AvlTree* node) {
+  AvlTree* current = node;
 
   while (current->right != NULL) {
     current = current->right;
@@ -124,7 +124,7 @@ int AvlTree_get_max(AvlTree *node) {
   return current->key;
 }
 
-AvlTree *AvlTree_search(AvlTree *node, int key) {
+AvlTree* AvlTree_search(AvlTree* node, int key) {
   if (node == NULL || node->key == key) {
     return node;
   }
@@ -136,7 +136,7 @@ AvlTree *AvlTree_search(AvlTree *node, int key) {
   return AvlTree_search(node->right, key);
 }
 
-void AvlTree_insert(AvlTree **root, int key) {
+void AvlTree_insert(AvlTree** root, int key) {
   if (*root == NULL) {
     *root = AvlTree_create(key);
   } else if (key < (*root)->key) {
@@ -148,7 +148,7 @@ void AvlTree_insert(AvlTree **root, int key) {
   }
 }
 
-void AvlTree_delete(AvlTree **root, int key) {
+void AvlTree_delete(AvlTree** root, int key) {
   if (*root == NULL) {
     return;
   } else if (key < (*root)->key) {
@@ -157,7 +157,7 @@ void AvlTree_delete(AvlTree **root, int key) {
     AvlTree_delete(&(*root)->right, key);
   } else {
     if ((*root)->left == NULL || (*root)->right == NULL) {
-      AvlTree *old_root = *root;
+      AvlTree* old_root = *root;
       *root = (*root)->left ? (*root)->left : (*root)->right;
       free(old_root);
     } else {
@@ -170,7 +170,7 @@ void AvlTree_delete(AvlTree **root, int key) {
   AvlTree_rebalance(root);
 }
 
-void AvlTree_print_keys(AvlTree *node) {
+void AvlTree_print_keys(AvlTree* node) {
   if (node == NULL) {
     return;
   }
@@ -180,7 +180,7 @@ void AvlTree_print_keys(AvlTree *node) {
   AvlTree_print_keys(node->right);
 }
 
-void AvlTree_sanity_check(AvlTree *node) {
+void AvlTree_sanity_check(AvlTree* node) {
   if (node == NULL) {
     return;
   }
@@ -196,7 +196,7 @@ void AvlTree_sanity_check(AvlTree *node) {
 //    to better solve the problem.
 // *******************************************************************
 
-void AvlTree_in_order(AvlTree *node) {
+void AvlTree_in_order(AvlTree* node) {
   if (node == NULL) {
     return;
   }
@@ -205,9 +205,9 @@ void AvlTree_in_order(AvlTree *node) {
   AvlTree_in_order(node->right);
 }
 
-void AvlTree_iterative_in_order(AvlTree *node) {
+void AvlTree_iterative_in_order(AvlTree* node) {
   int capacity = AvlTree_get_height(node);
-  AvlTree *stack[capacity];
+  AvlTree* stack[capacity];
   int stack_size = 0;
   while (stack_size != 0 || node != NULL) {
     if (node != NULL) {
