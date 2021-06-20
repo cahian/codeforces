@@ -1,3 +1,4 @@
+#include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -175,6 +176,17 @@ void AvlTree_print_keys(AvlTree *node) {
   AvlTree_print_keys(node->left);
   printf("%d ", node->key);
   AvlTree_print_keys(node->right);
+}
+
+void AvlTree_sanity_check(AvlTree *node) {
+  if (node == NULL) {
+    return;
+  }
+
+  AvlTree_sanity_check(node->left);
+  AvlTree_sanity_check(node->right);
+  assert(node->height == 1 + MAX(AvlTree_get_height(node->left),
+                                 AvlTree_get_height(node->right)));
 }
 
 void AvlTree_in_order(AvlTree *node) {
